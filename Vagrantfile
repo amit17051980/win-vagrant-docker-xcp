@@ -79,17 +79,21 @@ Vagrant.configure("2") do |config|
 	systemctl enable docker
 	systemctl start docker
 	usermod -aG docker vagrant
-	sleep 5s
-	docker ps
+	
+	# Configuring Docker Hub Private Registry
 	docker login --username $DHUBID --password $DHUBPASS 
 	docker pull $DHUBID/dctm-cs:16.4.0
 	
 	# Install Docker Composer
-	sudo curl -L \
+	FILE=/usr/bin/docker-compose
+	if [ ! -f "$FILE" ]; then
+		sudo curl -L \
 		"https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)" \
 		-o /usr/local/bin/docker-compose
-	sudo chmod +x /usr/local/bin/docker-compose
-	sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+		sudo chmod +x /usr/local/bin/docker-compose
+		sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+	fi
+	
 	docker-compose --version
 	
 	# Create Docker Network
@@ -108,7 +112,7 @@ Vagrant.configure("2") do |config|
 	sleep 5s
 	# docker cp documentum-da:/usr/local/tomcat/webapps.dist/manager /dctm/media-files/
 	# docker cp /dctm/media-files/manager documentum-da:/usr/local/tomcat/webapps/
-	docker exec documentum-da su -c "mv /usr/local/tomcat/webapps.dist/manager /usr/local/tomcat/webapps/"
+	docker exec documentum-da su -c "cp /usr/local/tomcat/webapps.dist/manager /usr/local/tomcat/webapps/"
 	docker cp /dctm/media-files/tomcat-users.xml documentum-da:/usr/local/tomcat/conf/
 	docker cp /dctm/media-files/context.xml documentum-da:/usr/local/tomcat/webapps/manager/META-INF/
 	
@@ -117,6 +121,8 @@ Vagrant.configure("2") do |config|
 	
 	# Deploy DA and Setup Custom-Conf
 	
+	
+	docker ps
 	echo "All DONE!"
   SHELL
 end
