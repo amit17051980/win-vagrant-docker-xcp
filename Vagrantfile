@@ -101,7 +101,7 @@ Vagrant.configure("2") do |config|
 	
 	# Setup documentum content server with repository and method server
 	source /dctm/documentum-environment.profile
-    docker-compose -f /dctm/CS-Docker-Compose_Stateless.yml up -d
+	docker-compose -f /dctm/CS-Docker-Compose_Stateless.yml up -d
 	
 	# Setup Tomcat for DA and xCP Apphost
 	docker run --network dctm-dev -d --name documentum-da --hostname documentum-da -p 8080:8080 amit17051980/dctm-tomcat:latest
