@@ -6,8 +6,8 @@ Setup Documentum xCP docker environment using Vagrant and Docker Container on Hy
 
 Below assumtions have been made while creating this document. Please skip the relevant sections below if you already have referenced components installed/configured.
 
-#### Windows package manager (Chocolatey) and Hyper-V are not installed and configured
-#### Git and Vagrant are not installed and configured
+* Windows package manager (Chocolatey) and Hyper-V are not installed and configured
+* Git and Vagrant are not installed and configured
 
 ## Host Environment
 
@@ -38,7 +38,7 @@ choco install -y vagrant # Remove if you already have vagrant
 
 ## Clone the Project
 
-This step integrate many manual steps into one Vagrantfile and delivers the Dockerised xCP environment. Some command-line options will be presented to deal with Hyper-V VM provisioning, and until the limitations are removed, will be not automated. Open a new Windows PowerShell as Administrator, and run the commands below.
+This step integrate many manual steps into one Vagrantfile and delivers the Dockerised xCP environment. Some command-line options will be presented to deal with Hyper-V VM provisioning, and until the limitations are removed, will be not automated. Open <b><i>a new</i></b> Windows PowerShell as Administrator, and run the commands below.
 
 ```PowerShell
 cd ~
