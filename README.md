@@ -54,7 +54,10 @@ cd .\win-vagrant-docker-xcp
 * TBC
 * TBC
 
-## Update the 'documentum-environment.profile' for appropriate passwords, and use HashiCorp Vault to store these for future reference.
+## Update the files below before proceed
+
+* media-files/tomcat-users.xml : Update passwords
+* documentum-environment.profile : Update passwords
 
 ## Run the command below to create the VM with all the relevant containers.
 
@@ -62,6 +65,7 @@ cd .\win-vagrant-docker-xcp
 # Import the environment variables to connect with private docker hub registry. 
 # This is not a good practice, and would highly recommend to use https://docs.docker.com/engine/reference/commandline/login/
 # In this instance, we are enforcing to get rid of history at the end of session exit.
+
 Set-PSReadlineOption -HistorySaveStyle SaveNothing
 $env:DHUBID = 'Docker HUB ID'
 $env:DHUBPASS = 'Docker HUB PASSWORD' 
