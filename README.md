@@ -8,6 +8,7 @@ Below assumtions have been made while creating this document. Please skip the re
 
 * Windows package manager (Chocolatey) and Hyper-V are not installed and configured
 * Git and Vagrant are not installed and configured
+* A private docker registry exists, and is accessible to use documentum content server image 
 
 ## Host Environment
 
@@ -56,6 +57,14 @@ Copy the files below into '.\win-vagrant-docker-xcp\media-files'
 Run the command below to create the VM with all the relevant containers.
 
 ```PowerShell
+# Import the environment variables to connect with private docker hub registry. 
+# This is not a good practice, and would highly recommend to use https://docs.docker.com/engine/reference/commandline/login/
+# In this instance, we are enforcing to get rid of history at the end of session exit.
+Set-PSReadlineOption -HistorySaveStyle SaveNothing
+$env:DHUBID = 'Docker HUB ID'
+$env:DHUBPASS = 'Docker HUB PASSWORD' 
+
+cd ~\DCTM-Projects\win-vagrant-docker-xcp
 vagrant up
 ```
 
