@@ -44,7 +44,7 @@ Vagrant.configure("2") do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "media-files", "/tmp"
+  config.vm.synced_folder ".", "/dctm", create: true
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -71,7 +71,7 @@ Vagrant.configure("2") do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  config.vm.provision "shell", inline: <<-SHELL
+  config.vm.provision "shell", env: {"DHUBID"=>ENV['DHUBID'], "DHUBPASS"=>ENV['DHUBPASS']}, inline: <<-SHELL
     yum -y update
 	yum -y install -y yum-utils
 	yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
@@ -81,5 +81,28 @@ Vagrant.configure("2") do |config|
 	usermod -aG docker vagrant
 	sleep 5s
 	docker ps
+	docker login --username $DHUBID --password $DHUBPASS 
+	docker pull $DHUBID/dctm-cs:16.4.0
+	
+	# Install Docker Composer
+	sudo curl -L \
+		"https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)" \
+		-o /usr/local/bin/docker-compose
+	sudo chmod +x /usr/local/bin/docker-compose
+	sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+	docker-compose --version
+	
+	# Create Docker Network
+	docker network create dctm-dev
+	# Create and configure Postgres Container for Documentum repository
+	docker run --network dctm-dev --name postgres --hostname postgres -e POSTGRES_PASSWORD=password -d -p 5432:5432 postgres:9.6
+	sleep 5s
+	docker exec -it postgres su -c "mkdir /var/lib/postgresql/data/db_documentum_dat.dat" postgres
+	
+	# Setup documentum content server with repository and method server
+	source /dctm/documentum-environment.profile
+    docker-compose -f /dctm/CS-Docker-Compose_Stateless.yml up -d
+	
+	echo "All DONE!"
   SHELL
 end
