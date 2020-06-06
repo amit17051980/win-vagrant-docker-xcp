@@ -74,5 +74,26 @@ cd ~\DCTM-Projects\win-vagrant-docker-xcp
 vagrant up
 ```
 
+## Appendix
+
+### [DM_CRYPTO_F_KEYSTORE_INIT]fatal:  "Failed to initialize keystore at /opt/dctm/dba/secure/CSaek. Internal error - 1057226582"
+
+Even if you are not using lockbox feature, this has fixed the issue after rebooting the hyper-v, and the containers.
+Please refer http://newwayofcontentmanagement.blogspot.com/2018/02/dmcryptofkeystoreinitfatal-failed-to.html
+
+```
+#!/bin/bash
+# Take the backup of the $DOCUMENTUM/dba/secure folder
+cp -r $DOCUMENTUM/dba/secure $DOCUMENTUM/dba/secure_bkp
+if [ -f $DM_HOME/bin/dm_crypto_manage_lockbox ]; then
+  cd $DM_HOME/bin/
+  chmod +x dm_crypto_manage_lockbox
+  dm_crypto_manage_lockbox -lockbox lockbox.lb -lockboxpassphrase -resetfingerprint
+  dm_crypto_boot -all -passphrase
+else
+    echo "$DM_HOME/bin/dm_crypto_manage_lockbox does not exist.. so issue can not be resolved"
+    exit 1
+fi
+```
 
 
