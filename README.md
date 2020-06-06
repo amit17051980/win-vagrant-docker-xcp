@@ -18,7 +18,7 @@ Below assumtions have been made while creating this document. Please skip the re
 | CORES                 | 2 of 6 are available      |                                         |
 | DISK                  | 50 GB SSD available       |                                         |
 
-## Install Windows package manager (Chocolatey) and Hyper-V
+## (Optional) Install Windows package manager (Chocolatey) and Hyper-V
 
 Open the Windows PowerShell as Administrator, and run the commands below.
 ```PowerShell
@@ -27,7 +27,7 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
 ```
 
-## Install Git and Vagrant using Chocolatey
+## (Optional) Install Git and Vagrant using Chocolatey
 
 Open the Windows PowerShell as Administrator, and run the commands below.
 ```PowerShell
