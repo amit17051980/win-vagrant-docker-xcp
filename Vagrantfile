@@ -97,7 +97,7 @@ Vagrant.configure("2") do |config|
 	# Create and configure Postgres Container for Documentum repository
 	docker run --network dctm-dev --name postgres --hostname postgres -e POSTGRES_PASSWORD=password -d -p 5432:5432 postgres:9.6
 	sleep 5s
-	docker exec -it postgres su -c "mkdir /var/lib/postgresql/data/db_documentum_dat.dat" postgres
+	docker exec postgres su -c "mkdir /var/lib/postgresql/data/db_documentum_dat.dat" postgres
 	
 	# Setup documentum content server with repository and method server
 	source /dctm/documentum-environment.profile
@@ -106,9 +106,9 @@ Vagrant.configure("2") do |config|
 	# Setup Tomcat for DA and xCP Apphost
 	docker run --network dctm-dev -d --name documentum-da --hostname documentum-da -p 8080:8080 amit17051980/dctm-tomcat:latest
 	sleep 5s
-	docker cp documentum-da:/usr/local/tomcat/webapps.dist/manager /dctm/media-files/
-	docker cp /dctm/media-files/manager documentum-da:/usr/local/tomcat/webapps/
-	# docker exec -it documentum-da su -c "mv /usr/local/tomcat/webapps.dist/manager /usr/local/tomcat/webapps/" root
+	# docker cp documentum-da:/usr/local/tomcat/webapps.dist/manager /dctm/media-files/
+	# docker cp /dctm/media-files/manager documentum-da:/usr/local/tomcat/webapps/
+	docker exec documentum-da su -c "mv /usr/local/tomcat/webapps.dist/manager /usr/local/tomcat/webapps/"
 	docker cp /dctm/media-files/tomcat-users.xml documentum-da:/usr/local/tomcat/conf/
 	docker cp /dctm/media-files/context.xml documentum-da:/usr/local/tomcat/webapps/manager/META-INF/
 	
