@@ -105,7 +105,10 @@ Vagrant.configure("2") do |config|
 	
 	# Setup Tomcat for DA and xCP Apphost
 	docker run --network dctm-dev -d --name documentum-da --hostname documentum-da -p 8080:8080 amit17051980/dctm-tomcat:latest
-	docker exec -it documentum-da su -c "mv /usr/local/tomcat/webapps.dist/manager /usr/local/tomcat/webapps/"
+	sleep 5s
+	docker cp documentum-da:/usr/local/tomcat/webapps.dist/manager /dctm/media-files/
+	docker cp /dctm/media-files/manager documentum-da:/usr/local/tomcat/webapps/
+	# docker exec -it documentum-da su -c "mv /usr/local/tomcat/webapps.dist/manager /usr/local/tomcat/webapps/" root
 	docker cp /dctm/media-files/tomcat-users.xml documentum-da:/usr/local/tomcat/conf/
 	docker cp /dctm/media-files/context.xml documentum-da:/usr/local/tomcat/webapps/manager/META-INF/
 	
