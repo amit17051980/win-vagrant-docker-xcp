@@ -36,7 +36,7 @@ choco install -y git # Remove if you already have git
 choco install -y vagrant # Remove if you already have vagrant
 ```
 
-## Clone the Project
+## Create a Project directory and Clone the Project in <i>$HOME/DCTM-Projects</i>
 
 This step integrate many manual steps into one Vagrantfile and delivers the Dockerised xCP environment. Some command-line options will be presented to deal with Hyper-V VM provisioning, and until the limitations are removed, will be not automated. Open <b><i>a new</i></b> Windows PowerShell as Administrator, and run the commands below.
 
@@ -49,6 +49,15 @@ cd .\win-vagrant-docker-xcp
 ```
 
 Copy the files below into '.\win-vagrant-docker-xcp\media-files'
+
+* TBC
+* TBC
+
+Run the command below to create the VM with all the relevant containers.
+
+```PowerShell
+vagrant up
+```
 
 
 
