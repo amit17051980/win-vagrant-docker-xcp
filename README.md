@@ -49,12 +49,14 @@ git clone https://github.com/amit17051980/win-vagrant-docker-xcp.git
 cd .\win-vagrant-docker-xcp
 ```
 
-Copy the files below into '.\win-vagrant-docker-xcp\media-files'
+## Copy the files below into '.\win-vagrant-docker-xcp\media-files'
 
 * TBC
 * TBC
 
-Run the command below to create the VM with all the relevant containers.
+## Update the 'documentum-environment.profile' for appropriate passwords, and use HashiCorp Vault to store these for future reference.
+
+## Run the command below to create the VM with all the relevant containers.
 
 ```PowerShell
 # Import the environment variables to connect with private docker hub registry. 
