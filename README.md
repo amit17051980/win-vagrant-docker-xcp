@@ -1,12 +1,22 @@
-# Setup Docker xCP Environment using Vagrant
+# Setup Documentum xCP Docker Environment using Vagrant on Windows 10
 
-Setup Documentum xCP docker environment using Vagrant and Docker Container on Hyper-V VM. The guide below is valid for Windows 10 Pro users who has Administrator permissions to run referenced commands.
+Setup Documentum xCP docker environment using Vagrant and Docker Container on Hyper-V VM. The guide below is valid for Windows 10 Pro users who has Admin permissions to run referenced commands.
+
+## Assumptions
+
+Below assumtions have been made while creating this document. Please skip the relevant sections below if you already have referenced components installed/configured.
+
+#### Windows package manager (Chocolatey) and Hyper-V are not installed and configured
+#### Git and Vagrant are not installed and configured
 
 ## Host Environment
 
-| Host OS        	| Virtualization Software 	| Guest OS 	| Guest Container 	|
-|----------------	|-------------------------	|----------	|-----------------	|
-| Windows 10 Pro 	| Hyper-V                 	| CentOS 7 	| Docker          	|
+| Configuration        	| Software/Specs 	          | Other Info                              |
+|----------------	      |-------------------------	|-----------                              |
+| Windows 10 Pro (HOST) | Hyper-V                 	| CentOS 7 (GUEST), Docker (CONTAINER) 	  |
+| RAM                   | 8 of 16 GB is available   |                                         |
+| CORES                 | 2 of 6 are available      |                                         |
+| DISK                  | 50 GB SSD available       |                                         |
 
 ## Install Windows package manager (Chocolatey) and Hyper-V
 
@@ -38,5 +48,7 @@ git clone https://github.com/amit17051980/win-vagrant-docker-xcp.git
 cd .\win-vagrant-docker-xcp
 ```
 
-Copy the below files into '.\win-vagrant-docker-xcp\media-files'
+Copy the files below into '.\win-vagrant-docker-xcp\media-files'
+
+
 
