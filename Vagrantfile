@@ -56,6 +56,18 @@ Vagrant.configure("2") do |config|
 	source /dctm/documentum-environment.profile
 	docker-compose -f /dctm/CS-Docker-Compose_Stateless.yml up -d
 	
+	# Fixing the restart of documentum docbase post reprovisioning
+	# The password has to be same as $AEK_PASSPHRASE
+	DIR=/var/lib/docker/volumes/dctm_documentum_dba/_data/config/documentum
+	if [ -d "$DIR" ]; then
+		sleep 5s
+		# echo "AEK_PASSPHRASE : ${AEK_PASSPHRASE}"
+		docker exec documentum-cs su - dmadmin -c "dm_crypto_boot -all -passphrase ${AEK_PASSPHRASE} -noprompt"
+		sleep 5s
+		docker exec documentum-cs su - dmadmin -c "/opt/dctm/dba/dm_start_documentum"
+	fi 
+	
+	
 	# Setup Tomcat for DA and xCP Apphost
 	docker run --network dctm-dev -d --name documentum-da --hostname documentum-da -p 8080:8080 amit17051980/dctm-tomcat:latest
 	sleep 5s
