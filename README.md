@@ -51,8 +51,9 @@ cd .\win-vagrant-docker-xcp
 
 ## Copy the files below into '.\win-vagrant-docker-xcp\media-files'
 
-* TBC
-* TBC
+* da.war
+* process_engine_linux.tar
+* 
 
 ## Update the files below before proceed
 
